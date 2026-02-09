@@ -33,5 +33,26 @@
  * @returns {number} Parking fee or -1 for invalid input
  */
 export function calculateParkingFee(hours, vehicleType) {
-  // Your code here
+	var hour = Math.ceil(hours);
+	if (hour <= 0) return -1;
+	if (!(vehicleType === "car" || vehicleType ==="bus" || vehicleType==="motorcycle")) return -1;
+	var fee;
+	if (hour <= 1) {
+		if (vehicleType == "car") fee = 5;
+		else if (vehicleType == "motorcycle") fee = 3;
+		else if (vehicleType == "bus") fee = 10;
+	} else if (hour > 1) {
+		if (vehicleType == "car") fee = 5 + 3 * (hour - 1);
+		else if (vehicleType == "motorcycle") fee = 3 + 2 * (hour - 1);
+		else if (vehicleType == "bus") fee = 10 + 7 * (hour - 1);
+	}
+
+	if (vehicleType == "bus" && fee > 60) fee = 60;
+	if (vehicleType == "car" && fee > 30) fee = 30;
+	if (vehicleType == "motorcycle" && fee > 18) fee = 18;
+
+	return fee;
 }
+
+// var a = calculateParkingFee(3, "car");
+// console.log(a);
